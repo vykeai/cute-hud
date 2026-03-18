@@ -13,11 +13,20 @@ class BlockingOverlay {
     private var visible = false
     private var globalMonitor: Any?
     private var localMonitor: Any?
+    private var autoTimeout: Timer?
+    private static let maxDurationSeconds: TimeInterval = 30  // never block longer than 30s
     var onDismiss: (() -> Void)?
 
     func show() {
         guard !visible else { return }
         visible = true
+
+        // Safety: auto-dismiss after max duration so we never trap the user
+        autoTimeout?.invalidate()
+        autoTimeout = Timer.scheduledTimer(withTimeInterval: Self.maxDurationSeconds, repeats: false) { [weak self] _ in
+            guard let self, self.visible else { return }
+            self.onDismiss?()
+        }
 
         for screen in NSScreen.screens {
             let win = NSWindow(
@@ -51,6 +60,8 @@ class BlockingOverlay {
     func hide() {
         guard visible else { return }
         visible = false
+        autoTimeout?.invalidate()
+        autoTimeout = nil
         removeKeyboardMonitors()
         for win in windows {
             win.orderOut(nil)
@@ -182,10 +193,15 @@ class BlockingOverlay {
             return true
         }
 
-        // Plain Escape — dismiss overlay
+        // Plain Escape — dismiss overlay (hide directly as fallback even if onDismiss isn't set)
         if isEscape && event.modifierFlags.intersection([.command, .option, .control, .shift]).isEmpty {
             DispatchQueue.main.async { [weak self] in
-                self?.onDismiss?()
+                guard let self else { return }
+                if let dismiss = self.onDismiss {
+                    dismiss()
+                } else {
+                    self.hide()
+                }
             }
             return true
         }
