@@ -30,6 +30,9 @@ class HUDPanel: NSObject, NSApplicationDelegate {
     private var wonderFacts: [[String: String]] = []
     private var wonderIndex = 0
     private var lastExternalFact = false  // true if caller sent a fact — don't override
+    private var stdinWatchdog: Timer?
+    private var lastStdinTime = Date()
+    private static let stdinTimeoutSeconds: TimeInterval = 45  // auto-hide if no stdin for 45s while visible
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupPanels()
@@ -46,7 +49,23 @@ class HUDPanel: NSObject, NSApplicationDelegate {
             emit(["event": "dismissed"])
         }
 
+        startStdinWatchdog()
         emit(["event": "ready"])
+    }
+
+    private func startStdinWatchdog() {
+        stdinWatchdog = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            let elapsed = Date().timeIntervalSince(self.lastStdinTime)
+            if elapsed >= Self.stdinTimeoutSeconds && (self.overlayVisible || self.blocking.isVisible) {
+                DispatchQueue.main.async {
+                    self.blocking.hide()
+                    for b in self.panels { b.panel.level = .floating }
+                    self.hidePanel()
+                    emit(["event": "watchdog_dismissed", "idle_seconds": Int(elapsed)])
+                }
+            }
+        }
     }
 
     // MARK: - Layout
@@ -517,6 +536,7 @@ class HUDPanel: NSObject, NSApplicationDelegate {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             while let line = readLine() {
                 guard let self else { break }
+                self.lastStdinTime = Date()
                 let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
                 if trimmed.isEmpty { continue }
                 guard let data = trimmed.data(using: .utf8),
