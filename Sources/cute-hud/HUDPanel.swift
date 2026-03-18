@@ -26,10 +26,26 @@ class HUDPanel: NSObject, NSApplicationDelegate {
     private var countdownEndDate: Date?
     private(set) var overlayVisible = false
     let blocking = BlockingOverlay()
+    private var wonderTimer: Timer?
+    private var wonderFacts: [[String: String]] = []
+    private var wonderIndex = 0
+    private var lastExternalFact = false  // true if caller sent a fact — don't override
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupPanels()
         startStdinReader()
+        loadWonderFacts()
+        startWonderRotation()
+
+        // Wire up safety dismiss — Escape or X button hides overlay + panel
+        blocking.onDismiss = { [weak self] in
+            guard let self else { return }
+            self.blocking.hide()
+            for b in self.panels { b.panel.level = .floating }
+            self.hidePanel()
+            emit(["event": "dismissed"])
+        }
+
         emit(["event": "ready"])
     }
 
@@ -262,8 +278,9 @@ class HUDPanel: NSObject, NSApplicationDelegate {
                 let prefix = platformField.isEmpty ? "" : platformPrefix(platformField)
                 b.taskLabel.stringValue = "\(prefix)\(task)"
 
-                // Fact card
+                // Fact card — caller-provided facts take priority over wonder rotation
                 if !fact.isEmpty {
+                    lastExternalFact = true
                     let catColor = categoryColor(factCategory)
                     b.factAccentBar.layer?.backgroundColor = catColor.withAlphaComponent(0.80).cgColor
                     b.factEmojiLabel.stringValue = factEmoji
@@ -283,7 +300,11 @@ class HUDPanel: NSObject, NSApplicationDelegate {
                     b.factTextLabel.stringValue = fact
                     setFactVisible(b, true)
                 } else {
-                    setFactVisible(b, false)
+                    lastExternalFact = false
+                    // Let wonder rotation handle it — don't hide if wonder is active
+                    if wonderFacts.isEmpty {
+                        setFactVisible(b, false)
+                    }
                 }
             }
 
@@ -399,6 +420,94 @@ class HUDPanel: NSObject, NSApplicationDelegate {
             default:         soundName = "Tink"
             }
             NSSound(named: NSSound.Name(soundName))?.play()
+        }
+    }
+
+    // MARK: - Wonder (lure fact rotation)
+
+    private func loadWonderFacts() {
+        // Load all facts from lure via Node in one shot, shuffle them
+        let lurePath = NSHomeDirectory() + "/dev/lure/dist/index.js"
+        guard FileManager.default.fileExists(atPath: lurePath) else { return }
+
+        let script = """
+        const l = require('\(lurePath)');
+        const cats = l.populatedCategories();
+        const all = [];
+        for (const cat of cats) {
+            const meta = l.getCategoryMeta(cat);
+            const items = l.byCategory(cat);
+            for (const item of items) {
+                const text = typeof item === 'string' ? item : item.text;
+                if (text) all.push({text, emoji: meta?.emoji || '🧠', category: cat});
+            }
+        }
+        // Shuffle
+        for (let i = all.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [all[i], all[j]] = [all[j], all[i]];
+        }
+        console.log(JSON.stringify(all));
+        """
+
+        let proc = Process()
+        let pipe = Pipe()
+        proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        proc.arguments = ["node", "-e", script]
+        proc.standardOutput = pipe
+        proc.standardError = FileHandle.nullDevice
+        do {
+            try proc.run()
+            proc.waitUntilExit()
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            if let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: String]] {
+                wonderFacts = arr
+            }
+        } catch {
+            // lure not available — no facts
+        }
+    }
+
+    private func startWonderRotation() {
+        guard !wonderFacts.isEmpty else { return }
+        // Show first fact immediately
+        showNextWonder()
+        // Rotate every 10 seconds
+        wonderTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in
+            self?.showNextWonder()
+        }
+    }
+
+    private func showNextWonder() {
+        guard !wonderFacts.isEmpty, overlayVisible, !lastExternalFact else { return }
+        let fact = wonderFacts[wonderIndex % wonderFacts.count]
+        wonderIndex += 1
+
+        DispatchQueue.main.async { [self] in
+            let text = fact["text"] ?? ""
+            let emoji = fact["emoji"] ?? "🧠"
+            let category = fact["category"] ?? ""
+
+            for b in panels {
+                let catColor = categoryColor(category)
+                b.factAccentBar.layer?.backgroundColor = catColor.withAlphaComponent(0.80).cgColor
+                b.factEmojiLabel.stringValue = emoji
+                let catStr = category.uppercased()
+                let catAttr = NSMutableAttributedString(string: catStr, attributes: [
+                    .font: NSFont.systemFont(ofSize: 10, weight: .bold),
+                    .foregroundColor: catColor.withAlphaComponent(0.95),
+                    .kern: 0.8 as NSNumber,
+                ])
+                b.factCategoryLabel.attributedStringValue = catAttr
+                let catWidth = catStr.isEmpty ? 0 : ceil(catAttr.size().width) + 10
+                let factTextX = HUD.insetX + 34 + catWidth
+                b.factTextLabel.frame = NSRect(
+                    x: factTextX, y: b.factTextLabel.frame.origin.y,
+                    width: HUD.panelWidth - factTextX - 30, height: 16
+                )
+                b.factTextLabel.stringValue = text
+                setFactVisible(b, true)
+            }
         }
     }
 
