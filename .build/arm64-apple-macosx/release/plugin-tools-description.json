@@ -1,0 +1,319 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.cute-hud-arm64-apple-macosx26.0-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/sources",
+      "importPath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/BlockingOverlay.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/Design.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/HUDPanel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/StateStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "cute_hud",
+      "moduleOutputPath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/Modules/cute_hud.swiftmodule",
+      "objects" : [
+        "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/BlockingOverlay.swift.o",
+        "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/Design.swift.o",
+        "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/HUDPanel.swift.o",
+        "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/StateStyle.swift.o",
+        "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "28",
+        "-serialize-diagnostics",
+        "-O",
+        "-j28",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "cute_hud_main",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "cute_hud"
+      ],
+      "outputFileMapPath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/BlockingOverlay.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/Design.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/HUDPanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/StateStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/Modules/cute_hud.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/luke/dev/cute-hud/Sources/cute-hud/BlockingOverlay.swift",
+        "/Users/luke/dev/cute-hud/Sources/cute-hud/Design.swift",
+        "/Users/luke/dev/cute-hud/Sources/cute-hud/HUDPanel.swift",
+        "/Users/luke/dev/cute-hud/Sources/cute-hud/StateStyle.swift",
+        "/Users/luke/dev/cute-hud/Sources/cute-hud/main.swift"
+      ],
+      "tempsPath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build",
+      "wholeModuleOptimization" : true
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "cute_hud" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "cute_hud",
+      "-package-name",
+      "cute_hud",
+      "-c",
+      "/Users/luke/dev/cute-hud/Sources/cute-hud/BlockingOverlay.swift",
+      "/Users/luke/dev/cute-hud/Sources/cute-hud/Design.swift",
+      "/Users/luke/dev/cute-hud/Sources/cute-hud/HUDPanel.swift",
+      "/Users/luke/dev/cute-hud/Sources/cute-hud/StateStyle.swift",
+      "/Users/luke/dev/cute-hud/Sources/cute-hud/main.swift",
+      "-I",
+      "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "28",
+      "-serialize-diagnostics",
+      "-O",
+      "-j28",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "cute_hud_main",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "cute_hud",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "cute_hud" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute-hud.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/BlockingOverlay.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/Design.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/HUDPanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/StateStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute-hud.product/Objects.LinkFileList"
+    },
+    "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/BlockingOverlay.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/Design.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/HUDPanel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/StateStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/luke/dev/cute-hud/Sources/cute-hud/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/cute_hud.build/sources"
+    },
+    "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/luke/dev/cute-hud/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}
